@@ -24,8 +24,6 @@ public class CollectionMain {
 		 * API(Application Programming Interface)
 		 * = 프로그래밍 언어에서는 사용하는 라이브러리를 말함.
 		 * 
-		 * 
-		 * 
 		 */
 		
 		String line = "================================================";
