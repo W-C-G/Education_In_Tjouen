@@ -18,8 +18,9 @@ public class MethodTest {
 	input1[2] = rd.nextInt();
 	
 	int resultSum = sum(input1);
-	System.out.println(resultSum);
-		
+
+	
+	
 	}
 
 	/* 
