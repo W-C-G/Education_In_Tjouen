@@ -18,9 +18,8 @@ public class ByteArrayStream {
 		String fpath = "C:/labs/sample.txt";
 		FileInputStream fi = null;
 		InputStreamReader is = null;
-		
-		
 		BufferedReader br = null;
+		
 		ByteArrayOutputStream ba = new ByteArrayOutputStream();
 		//OutputStreamWriter osw = new OutputStreamWriter(ba);
 		PrintWriter pw = new PrintWriter(ba);
