@@ -36,11 +36,35 @@ public class ChatClient {
 				System.out.println("로그인 실패");
 			}
 			
+			new Thread() {
+	            @Override
+	            public void run() {
+	               String msg;
+	               try {
+	                  while(true) {
+	                     msg = br.readLine();
+	                     String[] tmp = msg.split(":");
+	                     if(!tmp[0].equals(id)) {
+	                    	 System.out.println(msg);
+	                     }
+	                  }
+	               } catch (IOException e) {
+	                  e.printStackTrace();
+	               }
+	               System.out.println("클라이언트 쓰레드 종료");
+	            }
+	         }.start();
+			
 			// Msg 전송 과정
 			String msg;
 			while(true) {
 				System.out.print("Msg: ");
 				msg = sc.nextLine();
+				if(msg.equals("귓속말")) {
+					System.out.print("Secret Msg: ");
+					
+					continue;
+				}
 				pw.println(id+":"+msg);
 				pw.flush();
 			}
@@ -74,9 +98,6 @@ public class ChatClient {
 			System.out.println("[클라이언트] 로그인 성공");
 			return true;
 		}
-		else {
-			System.out.println("[클라이언트] 로그인 실패");
-			return false;
-		}
+		return false;
 	}
 }
