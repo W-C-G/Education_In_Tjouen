@@ -78,7 +78,7 @@ class Client extends Thread{
 				login_success = true;
 				pw.println("1");
 				// 이용자 id, UserIO(읽기, 쓰기, 이용자 id)
-				ChatServer.userMap.put(strlist[0], new UserIO(br, pw, strlist[0]));
+				//ChatServer.userMap.put(strlist[0], new UserIO(br, pw, strlist[0]));
 				System.out.println("[서버] 로그인 성공");
 			}
 			else {
@@ -97,7 +97,7 @@ class Client extends Thread{
 					while(it.hasNext()) {
 						String uid = it.next();
 						UserIO uio = ChatServer.userMap.get(uid);
-						upw = uio.getPw();
+						//upw = uio.getPw();
 						upw.println(msg);
 						upw.flush();
 					}
@@ -112,7 +112,8 @@ class Client extends Thread{
 	}
 }
 
-class UserIO{
+
+/*class UserIO{
 	private BufferedReader br;
 	private PrintWriter pw;
 	private String uid;
@@ -148,4 +149,4 @@ class UserIO{
 		this.pw = pw;
 	}
 	
-}
+}*/
