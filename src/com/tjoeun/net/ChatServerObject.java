@@ -126,7 +126,6 @@ class ClientThread extends Thread{
 				// 귓속말 보내는 과정
 				String receiver = msgObj.getReceiver();
 				if(receiver != null && receiver.length() != 0) {
-					System.out.println("리시버가 널이 아닙니다!");
 					UserIO u = ChatServerObject.userMap.get(receiver);
 					ObjectOutputStream oos = u.getOos();
 					oos.writeObject(msgObj);
@@ -135,7 +134,6 @@ class ClientThread extends Thread{
 				
 				// 모든 접속자의 출력 스트림에 메시지를 전송하는 과정
 				else {
-					System.out.println("리시버가 널입니다!");
 					// Server에 있는 HashMap에서 Key(id)를 통해 정보를 가져올 수 있도록 iterator 생성
 					// HashMap에서 Key로 가져올 수 있는 것은 UserIO(id, ois, oos)
 					Set<String> ids = ChatServerObject.userMap.keySet();

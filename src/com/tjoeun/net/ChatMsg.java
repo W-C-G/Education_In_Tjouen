@@ -24,12 +24,6 @@ public class ChatMsg implements Serializable{
 		setReceiver(receiver);
 		setFiledata(filedata);
 	}
-	ChatMsg(String sender, String receiver, String msg, byte[] filedata){
-		setSender(sender);
-		setReceiver(receiver);
-		setMsg(msg);
-		setFiledata(filedata);
-	}
 	
 	public String getSender() {
 		return sender;

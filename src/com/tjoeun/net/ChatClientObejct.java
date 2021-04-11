@@ -8,6 +8,9 @@ import java.util.*;
 // Q. ip 주소는 서버 컴퓨터의 주소가 들어가야 하기 때문에, 일일이 사용자에게 알려줘야 하는 번거러움이 있을 것 같습니다. 
 // 하지만 서버 컴퓨터의 ip 주소를 넣어서 전달하자니 보안상의 이유로 걱정이 됩니다. 좋은 해결방법이 있을까요? 인트라넷/방화벽과 같은 보안 체제로 방어 가능. 서버 주소가 공개되는 것은 흔한 일.
 
+// Q. 파일 송신) FileInputStream을 활용해 읽은 뒤(byte 배열 상태) 그대로 ChatMsg 생성 후 메시지 보내는 과정은 똑같이 진행한다.
+// 	 파일 수신) FileOutputStream을 활용해 읽은 배열 ObjectOutputStream으로 반환 
+
 public class ChatClientObejct {
 	static Scanner sc = new Scanner(System.in);
 	static String id;
@@ -37,7 +40,7 @@ public class ChatClientObejct {
 				System.out.println("로그인 실패");
 				return ;
 			}
-			
+						
 			//4. 메시지 전달 과정 수행
 			//(1) 메시지 수신
 			new Thread() {
@@ -45,12 +48,24 @@ public class ChatClientObejct {
 				public void run() {
 					String msg;
 					String receiver;
+					
 					try {
 						while(true) {
 							ChatMsg msgObj = (ChatMsg) ois.readObject();
 							msg = msgObj.getMsg();
 							receiver = msgObj.getReceiver();
-							System.out.println("\n"+msg);
+							
+							// message의 내용이 null => file을 전송했으니 받아야함.
+							if(msg != null && receiver.length() != 0) {
+								System.out.println("\n"+msg);
+							} else {
+								// 받을 주소를 작성하는 건 누가 해야할지 고민중이라 그냥 지정해놓은 상태로 작성
+								String hello = "C:\\labs\\hellonames.txt";
+								FileOutputStream fout_new = new FileOutputStream(hello);
+								ObjectOutputStream new_oos = new ObjectOutputStream(fout_new);
+								new_oos.write(msgObj.getFiledata());
+								new_oos.close();
+							}
 						}
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
@@ -65,13 +80,19 @@ public class ChatClientObejct {
 			new Thread() {
 				@Override
 				public void run() {
+				// (file 전송 목적)
+				InputStream fis;
+				OutputStream fos;
 				String msg;
+				String fpath;
 				while(true) {
 					// 분기가 나눠지는 지점
 					// 전챗일지 갠톡일지 확인하고 수신자 입력받아 새로운 객체 생성 후 writeobject 실행
-					System.out.print("개인톡을 보낼 것이라면 0을 전체톡을 보낼 것이라면 1을 눌러주세요.");
+					System.out.print("개인톡을 보낼 것이라면 0, 전체톡을 보낼 것이라면 1, 개인에게 파일을 전송한다면 2를 눌러주세요.");
 					String decision1 = sc.nextLine();
+					
 					ChatMsg msgObj=null;
+					
 					if(decision1.equals("0")) {
 						System.out.print("Receiver: ");
 						String receiver = sc.nextLine();
@@ -83,7 +104,26 @@ public class ChatClientObejct {
 						System.out.print("Input Msg: ");
 						msg = sc.nextLine();
 						msgObj = new ChatMsg(id, null, id+":"+msg);	
-					} else {
+					} 
+					else if(decision1.equals("2")) {
+						System.out.print("보낼 파일 명(주소를 포함하여 작성해주세요): ");
+						fpath = sc.nextLine();
+						System.out.print("Receiver: ");
+						String receiver = sc.nextLine();
+						try {
+							fis = new FileInputStream(fpath); // byte 배열
+							byte[] byteArray = null;
+							try {
+								byteArray = fis.readAllBytes();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+							msgObj = new ChatMsg(id, receiver, byteArray);
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						}
+					}
+					else {
 						System.out.println("번호를 잘못 입력하셨습니다.");
 					}
 					// msgObj의 형태에 맞게 write를 사용
