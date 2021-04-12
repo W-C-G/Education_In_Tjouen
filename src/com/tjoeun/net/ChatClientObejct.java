@@ -60,11 +60,15 @@ public class ChatClientObejct {
 								System.out.println("\n"+msg);
 							} else {
 								// 받을 주소를 작성하는 건 누가 해야할지 고민중이라 그냥 지정해놓은 상태로 작성
-								String hello = "C:\\labs\\hellonames.txt";
+								String hello = "C:\\labs\\hellocat.png";
 								FileOutputStream fout_new = new FileOutputStream(hello);
-								ObjectOutputStream new_oos = new ObjectOutputStream(fout_new);
-								new_oos.write(msgObj.getFiledata());
-								new_oos.close();
+								//ObjectOutputStream new_oos = new ObjectOutputStream(fout_new);
+								//new_oos.writeObject(msgObj.getFiledata());
+								//new_oos.flush();
+								//new_oos.close();
+								fout_new.write(msgObj.getFiledata());
+								fout_new.close();
+								System.out.println("파일 수신 및 저장 성공");
 							}
 						}
 					} catch (ClassNotFoundException e) {
