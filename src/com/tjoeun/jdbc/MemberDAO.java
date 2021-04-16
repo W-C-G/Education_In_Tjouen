@@ -29,7 +29,7 @@ public class MemberDAO {
 	
 	private static Connection getConn() {
 	    try {
-			conn = DriverManager.getConnection(url, "root", "dncjf1357");
+			conn = DriverManager.getConnection(url, "root", "********");
 			return conn;
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -34,7 +34,7 @@ public class MySQL_Test {
       // 立加且 DB 林家
       String url = "jdbc:mysql://localhost:3306/world?characterEncoding=UTF-8&serverTimezone=UTC&SSL=false";
       
-      conn = DriverManager.getConnection(url, "root", "dncjf1357"); // url, root_id, password
+      conn = DriverManager.getConnection(url, "root", "********"); // url, root_id, password
       
       System.out.println("Creating statement...");
       stmt = conn.createStatement();
