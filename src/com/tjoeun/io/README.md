@@ -55,7 +55,30 @@ ByteArrayInputStream, ByteArrayOutputStream
 ### End of File
 -1, null, Exception
 
+## Example of Using Stream
+### Input
+1. FileInputStream: 2Byte(16bit)씩 읽어오는 바이트 스트림. 이 때, 읽어온 형태는 숫자의 나열이다. (txt파일일 때, FileReader면 문자로 읽지만 아닐 경우에는 깨지기 때문에 txt파일이 아닐 경우 사용함)
+2. InputStreamReader: 2Byte로 받아서 문자화(숫자 -> Java) 시켜주는 변환스트림(ConversionStream). 전체를 읽어오기 때문에 한 행씩 읽어주는 추가 스트림을 사용해야 한다.
+3. BufferedReader: 버퍼에 한 문자씩 엔터를 치기 이전까지 모음(== 한 행을 모음)
+
+### Output(Input과 순서 동일)
+1. FileOutputStream
+2. OutputStreamWriter
+3. PrintWriter
+
+## ObjectStream
+### Serialization
+* 객체를 구성하는 비트의 열의 순서를 정하는 것
+* 메모리에 있는 객체 -> 파일에 저장, 네트워크 전송
+* 파일에 저장된 객체 -> 메모리에 복원, 네트워크에서 수신하여 복원
+
+### Sequence
+1. 클래스 선언(Implements Serializable)
+2. 인스턴스 생성
+3. 객체를 직렬화
+4. 직렬화된 객체를 복원
+
 ### Think
-요구사항에 따라 어느 stream을 사용해야할지 결정해야 함. 
-시간과 메모리를 둘 다 선택할 수 없기 때문에 시간의 경우 byte 배열을 통해 한꺼번에 읽어오는 방식(ByteArrayInputStream)을 사용하면 절약할 수 있음. 대신 그 만큼의 메모리 할당이 필요함.
-기본적으로 file 객체를 읽어오는 stream을 사용한 후, 케이스에 따라 사용할 stream 결정.
+* 요구사항에 따라 어느 stream을 사용해야할지 결정해야 함(txt파일이면 FileReader, 그 외의 경우엔 FileInputStream) 
+* 시간과 메모리를 둘 다 선택할 수 없기 때문에 시간의 경우 byte 배열을 통해 한꺼번에 읽어오는 방식(ByteArrayInputStream)을 사용하면 절약할 수 있음. 대신 그 만큼의 메모리 할당이 필요함.
+* 기본적으로 file 객체를 읽어오는 stream을 사용한 후, 케이스에 따라 사용할 stream 결정.
