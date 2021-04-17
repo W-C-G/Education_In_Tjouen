@@ -5,4 +5,5 @@ Education In The Jouen Aacademy
 * [x] Data I/O
 * [x] Exception
 * [x] Collection Using
-* [ ] ...
+* [x] Network Programming
+* [x] MySQL Connection In Java(CRUD)
