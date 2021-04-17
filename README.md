@@ -2,8 +2,10 @@
 Education In The Jouen Aacademy
 
 ## Learning Points
-* [x] Data I/O
-* [x] Exception
+* [x] OOP
 * [x] Collection Using
+* [x] Exception
+* [X] Data I/O
+* [x] Thread
 * [x] Network Programming
 * [x] MySQL Connection In Java(CRUD)
