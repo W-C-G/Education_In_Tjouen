@@ -36,7 +36,7 @@ pstmt.setString(2, "Scott"); //2번째 위치에 "Scott" 대입
 ```
 
 ---
-## Description File
+### Description File
 ##### EmpDAO: Emp table에 대한 Data Access Object
 ##### EmpVO: Emp Value Object
 ##### MemberDAO: Member Data Access Object
