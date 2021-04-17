@@ -55,6 +55,7 @@ ByteArrayInputStream, ByteArrayOutputStream
 ### End of File
 -1, null, Exception
 
+---
 ## Example of Using Stream
 ### Input
 1. FileInputStream: 2Byte(16bit)씩 읽어오는 바이트 스트림. 이 때, 읽어온 형태는 숫자의 나열이다. (txt파일일 때, FileReader면 문자로 읽지만 아닐 경우에는 깨지기 때문에 txt파일이 아닐 경우 사용함)
@@ -82,3 +83,20 @@ ByteArrayInputStream, ByteArrayOutputStream
 * 요구사항에 따라 어느 stream을 사용해야할지 결정해야 함(txt파일이면 FileReader, 그 외의 경우엔 FileInputStream) 
 * 시간과 메모리를 둘 다 선택할 수 없기 때문에 시간의 경우 byte 배열을 통해 한꺼번에 읽어오는 방식(ByteArrayInputStream)을 사용하면 절약할 수 있음. 대신 그 만큼의 메모리 할당이 필요함.
 * 기본적으로 file 객체를 읽어오는 stream을 사용한 후, 케이스에 따라 사용할 stream 결정.
+
+---
+
+### Description of File
+
+##### BasicFileCRUD: FileReader, FileWriter를 이용한 CRUD
+##### ByteArrayStream: ByteArrayStream을 이용해 file save
+##### ConversionStream2   
+     [변환스트림 구성] 키보드에서 입력되는 데이터를 Scanner를 사용하지 않고 다른 스트림을 사용하여 입력 받고, 최종적으로 FileOutputStream을 사용하여 누적하여 저장
+    1) System.in -> BufferedInputStream -> read() -> FileOutputStream, OutputStreamWriter -> write()
+    2) System.in -> InputStreamReader -> BufferedReader -> read() -> FileOutputStream -> OutputStreamWriter -> PrintWrtier -> write()
+##### DataIO: DataInputStream, DataOutputStream을 사용한 CRUD(new DataInputStream(new FielInputStream("file"))(writeUTF, wrtieInt...)
+##### ImageCopy
+    - imageCopy01(): 단순 복제
+    - imageCopy02(): byte buffer 활용 복제
+    - imageCopy03(): file 객체 활용 복제 + byte buffer 활용 복제
+    - imageCopy04(): byte data load 후 누적 저장
