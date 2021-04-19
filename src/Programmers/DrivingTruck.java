@@ -32,6 +32,11 @@ public class DrivingTruck {
 }
 
 class SolutionTruck {
+	/*
+	 * 트럭 클래스
+	 * weight: 트럭의 무게
+	 * check: 다리를 건너는 상태(예: 다리를 건너기 시작 1, 다리를 건너는 중일 때 1씩 증가한다.)
+	 */
 	class truck{
 		int weight;
 		int check = 0;
@@ -66,7 +71,6 @@ class SolutionTruck {
 	    	wait.add(new truck(i, 0));
 	    }
 	    
-	    
 	    // 다리를 지나가는 중 ing
 	    Queue<truck> ing = new LinkedList<>();
 	    
@@ -76,9 +80,12 @@ class SolutionTruck {
 	    // 시간 측정
 	    int time = 0;
 	   
-	    // 대기 중인 트럭과 지나가는 트럭이 없어야 종료
 	    while(true) {
 	    	Iterator<truck> it = ing.iterator();
+	    	/* 
+	    	 * 트럭이 다리를 건너는 상태를 확인했을 때, 다리의 길이와 같다면 진행중인 큐(ing)에서 종료가 된 큐(done)로 이동시킨다.
+	    	 * ConcurrentException 발생
+	    	 */
 	    	if(!ing.isEmpty()) {
 	    		while(it.hasNext()) {
 	    			truck tr = null;
@@ -95,34 +102,44 @@ class SolutionTruck {
 	    		}
 	    	}
 	    	
+	    	// 대기 중인 트럭과 지나가는 트럭이 없어야 종료
 	    	if(wait.isEmpty()&&ing.isEmpty()) break;
 	    		    	
+	    	// 아무도 건너는 트럭이 없다면 진행 중인 큐에 트럭 삽입 & 진행 중인 큐의 트럭의 상태를 증가 & 시간 증가
 	    	if(ing.isEmpty()) {
 	    		ing.add(wait.poll());
 	    		add_all(ing);
 	    		time++;
 	    	}
+	    	// 건너는 트럭이 있다면 
 	    	else {
+	    		// 대기 중인 트럭이 있을 경우
 	    		if(!wait.isEmpty()) {
+	    			// 대기 중인 트럭과 들어오려는 트럭의 무게가 다리의 무게를 넘을 경우, 진행 중인 트럭의 상태를 증가 & 시간 증가
 	    			if(wait.peek().getWeight()+driving_truck_weights(ing) > weight) {
 	    				add_all(ing);
 	    				time++;
 	    			}
+	    			// 대기 중인 트럭과 들어오려는 트럭의 무게가 다리의 무게를 넘지 않을 경우, 
+	    			// 대기 중인 큐에 트럭 삽입 & 진행 중인 트럭의 상태를 증가 & 시간 증가
 	    			else {
 	    				ing.add(wait.poll());
 	    				add_all(ing);
 	    				time++;
 	    			}
 	    		}
+	    		// 대기 중인 트럭이 없을 경우, 진행 중인 트럭의 상태를 증가 & 시간 증가
 	    		else {
 	    			add_all(ing);
 	    			time++;
 	    		}
 	    	}
 	    }
+	    // 1초부터 시작하기 때문에 1 증가
 	    return time+1;
     }
     
+    // 큐에 들어있는 트럭들의 무게 합
 	public int driving_truck_weights(Queue<truck> queue) {
 		int result = 0;
 		Iterator<truck> it = queue.iterator();
@@ -131,6 +148,8 @@ class SolutionTruck {
 		}
 		return result;
 	}
+	
+	// 큐에 들어있는 트럭의 상태를 1씩 증가
 	public void add_all(Queue<truck> queue) {
 		Iterator<truck> it = queue.iterator();
 		while(it.hasNext()) {
