@@ -18,7 +18,7 @@ public class EvaluationUserDAO {
 		List<User> tmp_list = new ArrayList<>();
 		
 		try {
-			conn = DriverManager.getConnection(url, "root", "dncjf1357"); // url, root_id, password
+			conn = DriverManager.getConnection(url, "root", "******"); // url, root_id, password
 		
 			String sql = "SELECT * FROM user";
 			pstmt = conn.prepareStatement(sql);
